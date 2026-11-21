@@ -1,17 +1,31 @@
 # Module by: EZRA FORTUNADO
-# under work, will add docs soon
-
-# core operations have now been added
-# positional methods are nice to have but not required yet, to be implement as needed
+#   core operations have now been added
+#   positional methods are nice to have but not required yet, to be implement as needed
 
 class node:
+    """
+    Represents a single node in a doubly linked list.
+
+    Attributes:
+        data: The value stored in the node.
+        prev: Reference to the previous node.
+        next: Reference to the next node.
+    """
     def __init__(self, data):
         self.data = data
-        self.prev = None # has to be another node
-        self.next = None # has to be another node
+        self.prev = None
+        self.next = None
 
 
 class linked_list:
+    """
+    Implements a doubly linked list.
+
+    Attributes:
+        head: Reference to the first node.
+        tail: Reference to the last node.
+        size: Number of nodes currently in the list.
+    """
     def __init__(self):
         self.head = None
         self.tail = None
@@ -19,6 +33,15 @@ class linked_list:
 
     # user methods below
     def insert_at_tail(self, data):
+        """
+        Inserts a node at the end of the linked list.
+
+        Args:
+            data: The value to store in the new node.
+
+        Returns:
+            node: The newly created node.
+        """
         new = node(data)
 
         if self.head == None:
@@ -34,6 +57,15 @@ class linked_list:
         return new
 
     def insert_at_head(self, data):
+        """
+        Inserts a node at the beginning of the linked list.
+
+        Args:
+            data: The value to store in the new node.
+
+        Returns:
+            node: The newly created node.
+        """
         new = node(data)
 
         if self.head == None:
@@ -49,6 +81,16 @@ class linked_list:
         return new
     
     def remove(self, data):
+        """
+        Removes the first node containing the specified value.
+
+        Args:
+            data: The value to search for and remove.
+
+        Returns:
+            bool: True if a node was removed, False if no
+            matching node was found.
+        """
         current = self.find(data)
 
         if current == None:
@@ -64,10 +106,23 @@ class linked_list:
         else:
             self.tail = current.prev
 
+        current.prev = None
+        current.next = None
+
         self.size -= 1
         return True
 
     def find(self, data):
+        """
+        Searches the linked list for the first matching value.
+
+        Args:
+            data: The value to search for.
+
+        Returns:
+            node: The first node containing the specified value,
+            or None if no matching node exists.
+        """
         current = self.head
         while current != None:
             if current.data == data:
@@ -78,6 +133,16 @@ class linked_list:
         return None
 
     def traverse(self, reverse=False):
+        """
+        Retrieves the values stored in the linked list.
+
+        Args:
+            reverse (bool): If True, traverses from tail to head.
+            Defaults to False, which traverses from head to tail.
+
+        Returns:
+            list: A list containing the values in traversal order.
+        """
         result = []
 
         if reverse:
@@ -99,17 +164,47 @@ class linked_list:
 
     # NOT IMPLEMENTED YET
     def insert_at_pos(self, pos, data):
-            # implement as needed
-            pass
+        """
+        Inserts a new node at the specified position.
+
+        Args:
+            pos: The index at which to insert the new node.
+            data: The value to store in the new node.
+
+        Returns:
+            Not implemented.
+        """
+        pass
     
     def remove_at(self):
+        """
+        Removes a node at a specified position.
+
+        Returns:
+            Not implemented.
+        """
         # implement as needed
         pass
 
     def get(self, pos):
+        """
+        Retrieves the node at the specified position.
+
+        Args:
+            pos: The index of the node to retrieve.
+
+        Returns:
+            Not implemented.
+        """
         # implement as needed
         pass
 
     def clear(self):
+        """
+        Removes all nodes from the linked list.
+
+        Returns:
+            Not implemented.
+        """
         # implement as needed
         pass
