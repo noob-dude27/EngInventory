@@ -162,10 +162,19 @@ class linked_list:
 
         return result
 
-    # NOT IMPLEMENTED YET
-    def insert_at_pos(self, pos, data):
+    def clear(self):
         """
-        Inserts a new node at the specified position.
+        Removes all nodes from the linked list and resets size count.
+        """
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    # NOT IMPLEMENTED YET
+    def insert_at_pos(self, pos, data, reverse=False):
+        """
+        Inserts a new node at the specified position relative 
+        to the head or tail node.
 
         Args:
             pos: The index at which to insert the new node.
@@ -174,9 +183,21 @@ class linked_list:
         Returns:
             Not implemented.
         """
-        pass
-    
-    def remove_at(self):
+        """if reverse:
+            current = self.tail
+            current_position = self.size
+            while current != None and current_position > pos:
+                
+                current_position -= 1
+                current = current.prev
+        else:
+            current = self.head
+            while current != None and current_position < self.size:
+                current_position += 1
+                current = current.next
+        """
+         
+    def remove_at_pos(self):
         """
         Removes a node at a specified position.
 
@@ -186,7 +207,7 @@ class linked_list:
         # implement as needed
         pass
 
-    def get(self, pos):
+    def get_at_pos(self, pos):
         """
         Retrieves the node at the specified position.
 
@@ -199,12 +220,8 @@ class linked_list:
         # implement as needed
         pass
 
-    def clear(self):
-        """
-        Removes all nodes from the linked list.
-
-        Returns:
-            Not implemented.
-        """
-        # implement as needed
+    def update(self):
         pass
+
+if __name__ == "__main__":
+    pass

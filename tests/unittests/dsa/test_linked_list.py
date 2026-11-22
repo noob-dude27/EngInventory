@@ -1,13 +1,27 @@
-from src.dsa.linked_list import linked_list
+# Test by: EZRA FORTUNADO
+# TODO: Improve readability of code
+
+from src.dsa.linked_list import linked_list, node
 
 import unittest
 
 class test_normal_cases(unittest.TestCase):
     def setUp(self):
+        # pretend I did not copy from insert_at_tail method
         self.ll = linked_list()
         initial_data = [10, 20, 30, 40]
-        for i in initial_data:
-            self.ll.insert_at_tail(i)
+        self.ll.size = len(initial_data)
+
+        for data in initial_data:
+            new = node(data)
+
+            if self.ll.head == None:
+                self.ll.head = new
+                self.ll.tail = new
+            else:
+                self.ll.tail.next = new
+                new.prev = self.ll.tail
+                self.ll.tail = new
 
     def test_forward_traversal(self):
         self.assertEqual(self.ll.traverse(), [10, 20, 30, 40])
@@ -20,6 +34,7 @@ class test_normal_cases(unittest.TestCase):
         new_ll.insert_at_head(10)
         new_ll.insert_at_head(20)
         new_ll.insert_at_head(30)
+
         self.assertEqual(new_ll.traverse(), [30,20,10])
 
     def test_insert_at_tail(self):
@@ -39,18 +54,34 @@ class test_normal_cases(unittest.TestCase):
         
     def test_remove(self):
         # from [10, 20, 30, 40] must be [20, 30]  
-        self.assertTrue(self.ll.remove(40), True)
-        self.assertFalse(self.ll.remove(50), False)
-        self.assertTrue(self.ll.remove(10), True)
+        self.assertTrue(self.ll.remove(40))
+        self.assertFalse(self.ll.remove(50))
+        self.assertTrue(self.ll.remove(10))
         self.assertEqual(self.ll.traverse(), [20,30])
+
+    def test_clear(self):
+        self.ll.clear()
+        self.assertEqual(self.ll.head, None)
+        self.assertEqual(self.ll.tail, None)
+        self.assertEqual(self.ll.size, 0)
+        self.assertEqual(self.ll.traverse(), [])
 
 
 class test_boundary_cases(unittest.TestCase):
     def setUp(self):
         self.ll = linked_list()
         initial_data = [10, -30, "Hello world", None, 10.00]
-        for i in initial_data:
-            self.ll.insert_at_tail(i)
+        self.ll.size = len(initial_data)
+        for data in initial_data:
+            new = node(data)
+
+            if self.ll.head == None:
+                self.ll.head = new
+                self.ll.tail = new
+            else:
+                self.ll.tail.next = new
+                new.prev = self.ll.tail
+                self.ll.tail = new
 
     def test_traversal_with_mixed_elements(self):
         self.assertEqual(self.ll.traverse(), [10, -30, "Hello world", None, 10.00])
@@ -77,13 +108,30 @@ class test_boundary_cases(unittest.TestCase):
         self.assertIsNone(new_ll.tail, None)
         self.assertEqual(new_ll.size, 0)
 
+    def test_empty_clear(self):
+        new_ll = linked_list()
+        new_ll.clear()
+        self.assertEqual(new_ll.head, None)
+        self.assertEqual(new_ll.tail, None)
+        self.assertEqual(new_ll.size, 0)
+        self.assertEqual(new_ll.traverse(), [])
+
 
 class test_edge_cases(unittest.TestCase):
     def setUp(self):
         self.ll = linked_list()
         initial_data = [30, 30.00, "30"]
-        for i in initial_data:
-            self.ll.insert_at_tail(i)
+        self.ll.size = len(initial_data)
+        for data in initial_data:
+            new = node(data)
+
+            if self.ll.head == None:
+                self.ll.head = new
+                self.ll.tail = new
+            else:
+                self.ll.tail.next = new
+                new.prev = self.ll.tail
+                self.ll.tail = new
 
     def test_empty_traversal(self):
         new_ll = linked_list()
