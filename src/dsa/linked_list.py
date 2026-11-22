@@ -112,24 +112,31 @@ class linked_list:
         self.size -= 1
         return True
 
-    def find(self, data):
+    def find(self, data, index=None):
         """
         Searches the linked list for the first matching value.
 
         Args:
             data: The value to search for.
+            index: Assuming the data is iterable, finds the value at such index.
 
         Returns:
             node: The first node containing the specified value,
-            or None if no matching node exists.
+                or None if no matching node exists.
         """
         current = self.head
-        while current != None:
-            if current.data == data:
+
+        while current is not None:
+            target = current.data
+
+            if index is not None:
+                target = target[index]
+
+            if target == data:
                 return current
 
             current = current.next
-        
+
         return None
 
     def traverse(self, reverse=False):
@@ -138,7 +145,7 @@ class linked_list:
 
         Args:
             reverse (bool): If True, traverses from tail to head.
-            Defaults to False, which traverses from head to tail.
+                Defaults to False, which traverses from head to tail.
 
         Returns:
             list: A list containing the values in traversal order.
@@ -147,25 +154,61 @@ class linked_list:
 
         if reverse:
             current = self.tail
-            current_position = self.size
-            while current != None and current_position > 0:
+            position = self.size # probably needs refactoring
+            while current != None and position > 0:
                 result.append(current.data)
-                current_position -= 1
+                position -= 1
                 current = current.prev
         else:
-            current_position = 0
+            position = 0
             current = self.head
-            while current != None and current_position < self.size:
+            while current != None and position < self.size:
                 result.append(current.data)
-                current_position += 1
+                position += 1
                 current = current.next
 
         return result
 
-    # NOT IMPLEMENTED YET
-    def insert_at_pos(self, pos, data):
+    def clear(self):
         """
-        Inserts a new node at the specified position.
+        Removes all nodes from the linked list and resets size count.
+        """
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def update(self, data, new_data, index=None):
+        """
+        Overwrites the data of the matching node with new_data.
+        If an index is supplied, it overwrites at that index.
+
+        If multiple nodes contain the same data, it overwrites
+        the first one it finds. 
+
+        Args:
+            data: The data required to match to a node
+            new_data: The data to change the node value
+            index: For iterable data, overwrites the data with new_data at that index
+
+        Returns:
+            bool: True if update was succesful, else False.
+        """
+        current = self.find(data,index)
+
+        if current == None:
+            return False
+
+        if index == None:
+            current.data = new_data
+        else:
+            current.data[index] = new_data
+
+        return True
+
+    def insert_at_pos(self, pos, data, reverse=False):
+        """
+        Inserts a new node at the specified position relative 
+        to the head or tail node.
 
         Args:
             pos: The index at which to insert the new node.
@@ -174,9 +217,8 @@ class linked_list:
         Returns:
             Not implemented.
         """
-        pass
-    
-    def remove_at(self):
+         
+    def remove_at_pos(self):
         """
         Removes a node at a specified position.
 
@@ -186,7 +228,7 @@ class linked_list:
         # implement as needed
         pass
 
-    def get(self, pos):
+    def get_at_pos(self, pos):
         """
         Retrieves the node at the specified position.
 
@@ -199,12 +241,6 @@ class linked_list:
         # implement as needed
         pass
 
-    def clear(self):
-        """
-        Removes all nodes from the linked list.
-
-        Returns:
-            Not implemented.
-        """
-        # implement as needed
-        pass
+    
+if __name__ == "__main__":
+    pass
