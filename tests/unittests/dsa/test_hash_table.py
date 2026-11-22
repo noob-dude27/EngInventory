@@ -23,16 +23,16 @@ class test_normal_cases(unittest.TestCase):
 
     def test_insert_single(self):
         self.assertTrue(self.ht.insert("Hello", "World"))
-        self.assertEqual(self.ht.contains("Hello"), "World")
+        self.assertEqual(self.ht.retrieve("Hello"), "World")
 
     def test_insert_multiple(self):
         self.assertTrue(self.ht.insert("Hello", "World")) # Hello -> World
         self.assertTrue(self.ht.insert("Goodbye", "Now")) # Goodbye -> Now
         self.assertTrue(self.ht.insert("Computer", "Engineering")) # Computer -> Engineering
         
-        self.assertEqual(self.ht.contains("Hello"), "World")
-        self.assertEqual(self.ht.contains("Goodbye"), "Now")
-        self.assertEqual(self.ht.contains("Computer"), "Engineering")
+        self.assertEqual(self.ht.retrieve("Hello"), "World")
+        self.assertEqual(self.ht.retrieve("Goodbye"), "Now")
+        self.assertEqual(self.ht.retrieve("Computer"), "Engineering")
 
     def test_element_count(self):
         self.ht.insert("A", 1)
@@ -44,7 +44,7 @@ class test_normal_cases(unittest.TestCase):
 
     def test_retrieval(self):
         self.assertTrue(self.ht.insert("Hello", "World"))
-        self.assertEqual(self.ht.contains("Hello"), "World")
+        self.assertEqual(self.ht.retrieve("Hello"), "World")
 
     def test_remove_existing(self):
         self.assertTrue(self.ht.insert("Hello", "World"))
@@ -54,7 +54,9 @@ class test_normal_cases(unittest.TestCase):
         self.assertTrue(self.ht.remove("Goodness"))
 
     def test_update(self):
-        pass
+        self.ht.insert("good", "day")
+        self.ht.update("good", "night")
+        self.assertEqual(self.ht.retrieve("good"), "night")
 
 
 class test_boundary_cases(unittest.TestCase):
@@ -73,24 +75,21 @@ class test_boundary_cases(unittest.TestCase):
         self.assertEqual(self.ht.peek(0), [["Hello", "World"], ["Hey", "There"]])
 
     def test_retrieve_at_empty(self):
-        self.assertFalse(self.ht.contains("Hello"))
+        self.assertFalse(self.ht.retrieve("Hello"))
 
     def test_retrieve_collision(self):
         self.ht.insert("Hello", "World")
         self.ht.insert("Hey", "There")
 
-        self.assertEqual(self.ht.contains("Hello"), "World")
-        self.assertEqual(self.ht.contains("Hey"), "There")
+        self.assertEqual(self.ht.retrieve("Hello"), "World")
+        self.assertEqual(self.ht.retrieve("Hey"), "There")
 
     def test_remove_collision(self):
         self.ht.insert("Hello", "World")
         self.ht.insert("Hey", "There")
 
         self.assertTrue(self.ht.remove("Hello"))
-        self.assertEqual(self.ht.contains("Hey"), "There")
-
-    def test_update(self):
-        pass
+        self.assertEqual(self.ht.retrieve("Hey"), "There")
             
         
 class test_edge_cases(unittest.TestCase):
@@ -117,9 +116,6 @@ class test_edge_cases(unittest.TestCase):
         ht = hash_table()
         with self.assertRaises(TypeError):
             ht.insert(None, "value")
-
-    def test_update(self):
-        pass
 
 if __name__ == "__main__":
     unittest.main()

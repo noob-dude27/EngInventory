@@ -66,6 +66,9 @@ class test_normal_cases(unittest.TestCase):
         self.assertEqual(self.ll.size, 0)
         self.assertEqual(self.ll.traverse(), [])
 
+    def test_update(self):
+        self.ll.update(10, 60)
+        self.assertEqual(self.ll.traverse(), [60, 20, 30, 40])
 
 class test_boundary_cases(unittest.TestCase):
     def setUp(self):
@@ -116,6 +119,12 @@ class test_boundary_cases(unittest.TestCase):
         self.assertEqual(new_ll.size, 0)
         self.assertEqual(new_ll.traverse(), [])
 
+    def test_update_duplicate(self):
+        new_ll = linked_list()
+        for _ in range(3):
+            new_ll.insert_at_tail(10)
+        for i in range(3):
+            self.assertTrue(new_ll.update(10, i)) # should return [1,2,3]
 
 class test_edge_cases(unittest.TestCase):
     def setUp(self):
@@ -170,6 +179,15 @@ class test_edge_cases(unittest.TestCase):
 
             self.assertIs(node.prev, expected_prev)
             self.assertIs(node.next, expected_next)
+
+    def test_update_nonetype(self):
+        new_ll = linked_list()
+        new_ll.insert_at_tail(None)
+        self.assertTrue(new_ll.update(None, "something"))
+
+    def test_update_not_existing(self):
+        new_ll = linked_list()
+        self.assertFalse(new_ll.update(None, "something"))
 
 if __name__ == "__main__":
     unittest.main()
