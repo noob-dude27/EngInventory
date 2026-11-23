@@ -73,7 +73,7 @@ class stack:
         """
         return self.ll.traverse()
 
-    def update_at_pos(self,data,new_data,index):
+    def update(self,data,new_data,index):
         """
         Not implemented yet.
         """

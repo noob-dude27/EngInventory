@@ -75,7 +75,7 @@ class queue:
         """
         return self.ll.traverse(reverse)
 
-    def update_at_index(self):
+    def update(self):
         """
         Not implemented yet.
         """
