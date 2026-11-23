@@ -212,9 +212,10 @@ class hash_table:
         bucket = self.buckets[index]
         current = bucket.find(key, data_index=0)
 
-        if current != None:
-            bucket.update_at_first(current.data[1], new_value, data_index=1)
+        if current is not None:
+            current.data[1] = new_value
             return True
+        
         return False
 
     def contains(self, key):
@@ -229,7 +230,7 @@ class hash_table:
         Returns:
             bool: True if the value exists, False otherwise.
         """
-        for bucket in self.buckets:
-            if bucket.find(key) != None:
-                return True
-        return False
+        index = self.compute_index(key)
+        bucket = self.buckets[index]
+        data = bucket.find(key, data_index=0) 
+        return data

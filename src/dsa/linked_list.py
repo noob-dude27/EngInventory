@@ -238,6 +238,7 @@ class linked_list:
                 self.head = None
 
             old_tail.next = None
+            old_tail.prev = None
             self.size -= 1
             return True
         else:
