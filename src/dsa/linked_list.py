@@ -2,6 +2,8 @@
 #   core operations have now been added
 #   positional methods are nice to have but not required yet, to be implement as needed
 
+# TODO: ADD COMPLEXITY TABLE  AND DESC
+
 class node:
     """
     Represents a single node in a doubly linked list.
@@ -112,13 +114,13 @@ class linked_list:
         self.size -= 1
         return True
 
-    def find(self, data, index=None):
+    def find(self, data, data_index=None):
         """
         Searches the linked list for the first matching value.
 
         Args:
             data: The value to search for.
-            index: Assuming the data is iterable, finds the value at such index.
+            data_index: Assuming the data is iterable, finds the value at such index.
 
         Returns:
             node: The first node containing the specified value,
@@ -129,8 +131,8 @@ class linked_list:
         while current is not None:
             target = current.data
 
-            if index is not None:
-                target = target[index]
+            if data_index is not None:
+                target = target[data_index]
 
             if target == data:
                 return current
@@ -177,10 +179,12 @@ class linked_list:
         self.tail = None
         self.size = 0
 
-    def update(self, data, new_data, index=None):
+    def update_at_first(self, data, new_data, data_index=None):
+        # Probably needs better tests of its own
         """
-        Overwrites the data of the matching node with new_data.
-        If an index is supplied, it overwrites at that index.
+        Overwrites the data of the first matching node with new_data.
+        If the data in question is an iterable (e.g, list) and
+        data_index is supplied, it overwrites the data at that index.
 
         If multiple nodes contain the same data, it overwrites
         the first one it finds. 
@@ -193,22 +197,58 @@ class linked_list:
         Returns:
             bool: True if update was succesful, else False.
         """
-        current = self.find(data,index)
+        current = self.find(data,data_index)
 
         if current == None:
             return False
 
-        if index == None:
+        if data_index == None:
             current.data = new_data
         else:
-            current.data[index] = new_data
+            current.data[data_index] = new_data
 
         return True
 
-    def insert_at_pos(self, pos, data, reverse=False):
+    def remove_at_head(self):
+        # write docs for this
+        if self.head != None:
+            old_head = self.head
+            self.head = self.head.next
+
+            if self.head != None:
+                self.head.prev = None
+            else:
+                self.tail = None
+
+            old_head.next = None
+            self.size -= 1
+            return True
+        else:
+            return False
+        
+    def remove_at_tail(self):
+        # write docs for this
+        if self.tail != None:
+            old_tail = self.tail
+            self.tail = self.tail.prev
+
+            if self.tail != None:
+                self.tail.next = None
+            else:
+                self.head = None
+
+            old_tail.next = None
+            self.size -= 1
+            return True
+        else:
+            return False
+
+    # NOT IMPLEMENTED YET
+    def insert_at_pos(self, data, position):
         """
         Inserts a new node at the specified position relative 
-        to the head or tail node.
+        to the head. It pushes the current node occupying that spot 
+        tailwards.
 
         Args:
             pos: The index at which to insert the new node.
@@ -218,7 +258,7 @@ class linked_list:
             Not implemented.
         """
          
-    def remove_at_pos(self):
+    def remove_at_pos(self, data, position):
         """
         Removes a node at a specified position.
 
@@ -228,7 +268,7 @@ class linked_list:
         # implement as needed
         pass
 
-    def get_at_pos(self, pos):
+    def get_at_pos(self, data, position):
         """
         Retrieves the node at the specified position.
 
@@ -241,6 +281,12 @@ class linked_list:
         # implement as needed
         pass
 
+    def update_at_pos(self, data, position):
+        """
+        Not implemented
+        """
+        # implement as needed
+        pass
     
 if __name__ == "__main__":
     pass

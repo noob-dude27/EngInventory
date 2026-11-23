@@ -1,5 +1,7 @@
 # Module by: EZRA FORTUNADO
 
+# TODO: ADD COMPLEXITY TABLE  AND DESC
+
 # Temp fix as I fix import problems
 try:
     from . import linked_list as ll # this runs outside of the current direcotry
@@ -61,7 +63,7 @@ class hash_table:
             h = ((h << 5) + h + b) & 0xFFFFFFFF # I should reference this
         return h
 
-    def comp_index(self, key):
+    def compute_index(self, key):
         """
         Calculates the bucket index for a given key.
 
@@ -89,10 +91,10 @@ class hash_table:
         Returns:
             bool: True if insertion succeeds, False if the key already exists.
         """
-        index = self.comp_index(key)
+        index = self.compute_index(key)
         bucket = self.buckets[index]
 
-        if bucket.find(key, index=0):
+        if bucket.find(key, data_index=0):
             return False
 
         bucket.insert_at_tail([key,value])
@@ -114,9 +116,9 @@ class hash_table:
         Returns:
             The stored value if the key exists, otherwise None.
         """
-        index = self.comp_index(key)
+        index = self.compute_index(key)
         bucket = self.buckets[index]
-        current = bucket.find(key, index=0)
+        current = bucket.find(key, data_index=0)
         if current is None:
             return None
 
@@ -132,9 +134,9 @@ class hash_table:
         Returns:
             bool: True if the pair was removed, False if the key was not found.
         """
-        index = self.comp_index(key)
+        index = self.compute_index(key)
         bucket = self.buckets[index]
-        current = bucket.find(key, index=0)
+        current = bucket.find(key, data_index=0)
 
         if current is None:
             return False
@@ -183,7 +185,7 @@ class hash_table:
             while current != None:
                 next_node =  current.next
                 key, value = current.data
-                index = self.comp_index(key)
+                index = self.compute_index(key)
                 bucket = self.buckets[index]
                 bucket.insert_at_tail(current.data)
                 current = next_node
@@ -206,12 +208,12 @@ class hash_table:
             key (str): Key of the pair to update.
             new_value: New value to associate with the key.
         """
-        index = self.comp_index(key)
+        index = self.compute_index(key)
         bucket = self.buckets[index]
-        current = bucket.find(key, index=0)
+        current = bucket.find(key, data_index=0)
 
         if current != None:
-            bucket.update(current.data[1], new_value, index=1)
+            bucket.update_at_first(current.data[1], new_value, data_index=1)
             return True
         return False
 
