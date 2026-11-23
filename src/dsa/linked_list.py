@@ -2,6 +2,8 @@
 #   core operations have now been added
 #   positional methods are nice to have but not required yet, to be implement as needed
 
+# TODO: ADD COMPLEXITY TABLE  AND DESC
+
 class node:
     """
     Represents a single node in a doubly linked list.
@@ -242,11 +244,11 @@ class linked_list:
             return False
 
     # NOT IMPLEMENTED YET
-    def insert_at_pos(self, data, position, reverse=False):
+    def insert_at_pos(self, data, position):
         """
         Inserts a new node at the specified position relative 
-        to the head or tail node. Pushes the current node
-        occupying that spot tailwards.
+        to the head. It pushes the current node occupying that spot 
+        tailwards.
 
         Args:
             pos: The index at which to insert the new node.
@@ -280,6 +282,10 @@ class linked_list:
         pass
 
     def update_at_pos(self, data, position):
+        """
+        Not implemented
+        """
+        # implement as needed
         pass
     
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 # Module by: EZRA FORTUNADO
 
+# TODO: ADD COMPLEXITY TABLE  AND DESC
+
 # Temp fix as I fix import problems
 try:
     from . import linked_list as ll # this runs outside of the current direcotry
