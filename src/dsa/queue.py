@@ -33,7 +33,7 @@ class queue:
         Args:
             data: The data to be stored.
         Returns:
-            bool: status of the enqueue.
+            bool: True if successful, False otherwise.
         """
         if self.ll.insert_at_tail(data):
             return True
@@ -59,7 +59,7 @@ class queue:
         Returns the front-most data without popping it.
 
         Returns:
-            data: front-most data
+            data: front-most data.
         """
         if self.ll.head == None:
             return None
@@ -71,7 +71,7 @@ class queue:
         Is an interface to linked_list.traverse().
 
         Returns:
-            data: the values found in the queue.
+            data: the elements found in the queue.
         """
         return self.ll.traverse(reverse)
 

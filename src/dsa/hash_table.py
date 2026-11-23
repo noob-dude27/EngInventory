@@ -170,7 +170,7 @@ class hash_table:
 
     def resize(self):
         """
-        Doubles the table capacity and redistribute existing elements.
+        Doubles the table capacity and redistributes existing elements.
 
         Rehashes every existing key using the new table size and places
         each key-value pair into its corresponding new bucket.
@@ -207,6 +207,8 @@ class hash_table:
         Args:
             key (str): Key of the pair to update.
             new_value: New value to associate with the key.
+        Returns:
+            bool: True if update was successful, False otherwise.
         """
         index = self.compute_index(key)
         bucket = self.buckets[index]
@@ -233,4 +235,8 @@ class hash_table:
         index = self.compute_index(key)
         bucket = self.buckets[index]
         data = bucket.find(key, data_index=0) 
-        return data
+
+        if data != None:
+            return True
+        else:
+            return False
